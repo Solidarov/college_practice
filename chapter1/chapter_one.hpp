@@ -4,14 +4,28 @@
 using namespace std;
 
 // Перевіряє правильний користувацький ввід для типу double
-void getUntilDouble(double* dInput, string msg){
+void getUntilNum(double* dInput, string msg){
     cout << "\n" << msg;
     cin >> *dInput;
     while (!cin){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input. \nEnter the value: ";
+        cout << "Invalid input. \n" << msg;
         cin >> *dInput;
+    }
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+// Перевіряє правильний користувацький ввід для типу double
+void getUntilNum(int* iInput, string msg){
+    cout << "\n" << msg;
+    cin >> *iInput;
+    while (!cin){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input. \n" << msg;
+        cin >> *iInput;
     }
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -88,7 +102,8 @@ void calcConditionalExpr(double* y, double x, double a){
 // Обчислює розширений розгалужений вираз із 3 завдання для 7 варіанту
 void calcAdvConditionalExpr(double *y, double x, double a, double b){
     if ((x > -3) && (x < 3)){
-        *y = sqrt(3 * x * x - a);
+        double eq = 3 * x * x - a;
+        *y = (eq < 0) ? sqrt(abs(eq)) : sqrt(eq);
 
     }else if (x == 3){
         *y = -b * x + 3;

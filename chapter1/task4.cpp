@@ -13,7 +13,7 @@ using namespace std;
 
 int main(){
     double salary;
-    getUntilDouble(&salary, "Enter the salary value: ");
+    getUntilNum(&salary, "Enter the salary value: ");
 
     taxCalc(&salary);
 

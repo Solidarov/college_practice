@@ -17,16 +17,16 @@ int main(){
         case 0:
             msg = "\n\nLinear Function";
             
-            getUntilDouble(&x, "Enter x value: ");
-            getUntilDouble(&a, "Enter a value: ");
+            getUntilNum(&x, "Enter x value: ");
+            getUntilNum(&a, "Enter a value: ");
             y = calcLinearExpr(x, y);
             break;
         
         case 1:
             msg = "\n\nFunction With Conditions";
 
-            getUntilDouble(&x, "Enter x value: ");
-            getUntilDouble(&a, "Enter a value: ");
+            getUntilNum(&x, "Enter x value: ");
+            getUntilNum(&a, "Enter a value: ");
             calcConditionalExpr(&y, x, a);
             break;
 

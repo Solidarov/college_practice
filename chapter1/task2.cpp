@@ -10,8 +10,8 @@ int main(){
 
     double x, a, y;
 
-    getUntilDouble(&x, "Enter value x: ");
-    getUntilDouble(&a, "Enter value a: ");
+    getUntilNum(&x, "Enter value x: ");
+    getUntilNum(&a, "Enter value a: ");
 
     calcConditionalExpr(&y, x, a);
 

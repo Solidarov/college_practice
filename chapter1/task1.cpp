@@ -11,9 +11,9 @@ int main(){
 
     double y, x, a;
     
-    getUntilDouble(&x, "Enter x value: ");
+    getUntilNum(&x, "Enter x value: ");
 
-    getUntilDouble(&a, "Enter a value: ");
+    getUntilNum(&a, "Enter a value: ");
 
     y = calcLinearExpr(x, y);
 

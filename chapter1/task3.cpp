@@ -10,11 +10,11 @@ int main(){
 
     double x, y, a, b;
 
-    getUntilDouble(&x, "Enter value x: ");
+    getUntilNum(&x, "Enter value x: ");
 
-    getUntilDouble(&a, "Enter value a: ");
+    getUntilNum(&a, "Enter value a: ");
     
-    getUntilDouble(&b, "Enter value b: ");
+    getUntilNum(&b, "Enter value b: ");
 
 
     calcAdvConditionalExpr(&y, x, a, b);
