@@ -48,6 +48,28 @@ void avgNegArithm(double mtx[4][3], int m, int n){
 
 }
 
+void sumOddElements(int mtx[4][3], int m, int n){
+    int oddSum = 0;
+    vector<pair<int, int>> idxPairs;
+
+    for (int i = 0; i < 4 && i < m; i++){
+        for (int j = 0; j < 3 && j < n; j++){
+            if (mtx[i][j] % 2 == 0){
+                idxPairs.push_back({i, j});
+
+            }else if (mtx[i][j] > 0){
+                oddSum += mtx[i][j];
+            }
+        }
+    }
+
+    for (auto pair: idxPairs){
+        mtx[pair.first][pair.second] = oddSum;
+    }
+
+    cout << "\nMatrix after operation: " << endl;
+    printOutMatrix(mtx, m, n);
+}
 
 void genAutoArray(int arr[], int& size){
     srand(time(0));
@@ -88,8 +110,33 @@ void genAutoMatrix(double mtx[4][3], int m, int n){
     }
 }
 
+void genAutoMatrix(int mtx[4][3], int m, int n){
+    int number;
+    uniform_int_distribution<int> dist(-100, 100);
+    default_random_engine re(time(0));
+
+    for (int i = 0; i < m && i < 4; i++){
+        for (int j = 0; j < n && j < 3; j++){
+            number = round(dist(re) * 100) / 100;
+            mtx[i][j] = number;
+        }
+    }
+}
+
 void genManMatrix(double mtx[4][3], int m, int n){
     double number; 
+    for (int i = 0; i < m && i < 4; i++){
+        cout << i + 1 << " row: ";
+        for (int j = 0; j < n && j < 3; j++){
+            getUntilNum(number, "Enter value: ");
+            mtx[i][j] = round(number * 100) / 100;
+        }
+        cout << "\n";
+    }
+}
+
+void genManMatrix(int mtx[4][3], int m, int n){
+    int number; 
     for (int i = 0; i < m && i < 4; i++){
         cout << i + 1 << " row: ";
         for (int j = 0; j < n && j < 3; j++){
@@ -172,6 +219,17 @@ void printOutArray(int arr[], int size){
 }
 
 void printOutMatrix(double mtx[4][3], int m, int n){
+    cout << "Content of the matrix:" << endl;
+    for (int i = 0; i < m && i < 4; i++){
+        cout << "\t";
+        for (int j = 0; j < n && j < 3; j++){
+            cout << mtx[i][j] << "\t\t";
+        }
+        cout << endl;
+    } 
+}
+
+void printOutMatrix(int mtx[4][3], int m, int n){
     cout << "Content of the matrix:" << endl;
     for (int i = 0; i < m && i < 4; i++){
         cout << "\t";

@@ -14,6 +14,12 @@ void minElement(int arr[], int size);
 void avgNegArithm(double mtx[4][3], int m, int n);
 
 /*
+    Обчислює суму додатних непарних елементів 
+    і замінює парні елементи масиву на цю суму
+*/
+void sumOddElements(int mtx[4][3], int m, int n);
+
+/*
     Автоматична генерація масиву в діапазоні від 0 до 100
 */
 void genAutoArray(int arr[], int& size);
@@ -24,14 +30,24 @@ void genAutoArray(int arr[], int& size);
 void genManArray(int arr[], int size);
 
 /*
-    Автоматично генерує матрицю 4*3 в діапазоні [-100; 100] 
+    Автоматично генерує матрицю (дійсні числа) 4*3 в діапазоні [-100; 100] 
 */
 void genAutoMatrix(double mtx[4][3], int m, int n);
 
 /*
-    Користувач вручну генерує матрицю 4*3
+   Автоматично генерує матрицю (цілі числа) 4*3 в діапазоні [-100; 100] 
+*/
+void genAutoMatrix(int mtx[4][3], int m, int n);
+
+/*
+    Користувач вручну генерує матрицю 4*3 (дійсні числа)
 */
 void genManMatrix(double mtx[4][3], int m, int n);
+
+/*
+    Користувач вручну генерує матрицю 4*3 (цілі числа)
+*/
+void genManMatrix(int mtx[4][3], int m, int n);
 
 /*
     Перевіряє правильність вибору користувача із запропонованих варіантів
@@ -54,8 +70,13 @@ void getUntilNum(double& dInput, std::string msg);
 void printOutArray(int arr[], int size);
 
 /*
-    Виводить вміст матриці на екран
+    Виводить вміст матриці на екран (дійсні числа)
 */
 void printOutMatrix(double mtx[4][3], int m, int n);
+
+/*
+    Виводить вміст матриці на екран (цілі числа)
+*/
+void printOutMatrix(int mtx[4][3], int m, int n);
 
 #endif
