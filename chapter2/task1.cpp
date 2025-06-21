@@ -8,7 +8,7 @@ using namespace std;
 int main(){
     int size, choice;
     
-    size = getUntilNum("Enter the size of array: ");
+    getUntilNum(size, "Enter the size of array: ");
     size = abs(size);
 
     int arr[size];
