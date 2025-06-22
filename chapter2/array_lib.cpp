@@ -71,6 +71,20 @@ void sumOddElements(int mtx[4][3], int m, int n){
     printOutMatrix(mtx, m, n);
 }
 
+void sumEvenElements(int tnsr[2][3][2], int d, int m, int n){
+    int sum = 0;
+    for (int i = 0; i < 2 && i < d; i++){
+        for (int j = 0; j < 3 && j < m; j++){
+            for (int k = 0; k < 2 && k < n; k++){
+                if (tnsr[i][j][k] % 2 == 0){
+                    sum += tnsr[i][j][k];
+                }
+            }
+        }
+    }
+    cout << "Sum of even elements is: " << sum << endl;
+}
+
 void genAutoArray(int arr[], int& size){
     srand(time(0));
     for (int i = 0; i < size; i++){
@@ -144,6 +158,33 @@ void genManMatrix(int mtx[4][3], int m, int n){
             mtx[i][j] = round(number * 100) / 100;
         }
         cout << "\n";
+    }
+}
+
+void genAutoTensor(int tnsr[2][3][2], int d, int m, int n){
+    srand(time(0));
+    for (int i = 0; i < 2 && i < d; i++){
+        for (int j = 0; j < 3 && j < m; j++){
+            for (int k = 0; k < 2 && k < n; k++){
+                tnsr[i][j][k] = (rand() % 201) - 100;
+            }
+        }
+    }
+}
+
+void genManTensor(int tnsr[2][3][2], int d, int m, int n){
+    int number;
+    for (int i = 0; i < 2 && i < d; i++){
+        cout << "\t" << i + 1 << " depth:" << endl;
+        for (int j = 0; j < 3 && j < m; j++){
+            cout << "\t" << j + 1 << " row:";
+            for (int k = 0; k < 2 && k < n; k++){
+                getUntilNum(number, "Enter the value: ");
+                tnsr[i][j][k] = number;
+            }
+            cout << endl;
+        }
+        cout << endl;
     }
 }
 
@@ -238,4 +279,17 @@ void printOutMatrix(int mtx[4][3], int m, int n){
         }
         cout << endl;
     } 
+}
+
+void printOutTensor(int tnsr[2][3][2], int d, int m, int n){
+    cout << "Content of the tensor: \n" << endl;
+    for (int i = 0; i < 2 && i < d; i++){
+        for (int j = 0; j < 3 && j < m; j++){
+            for (int k = 0; k < 2 && k < n; k++){
+                cout << "\t" << tnsr[i][j][k];
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
 }

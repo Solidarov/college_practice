@@ -20,6 +20,11 @@ void avgNegArithm(double mtx[4][3], int m, int n);
 void sumOddElements(int mtx[4][3], int m, int n);
 
 /*
+    Визначає суму парних елементів тензора
+*/
+void sumEvenElements(int tnsr[2][3][2], int d, int m, int n);
+
+/*
     Автоматична генерація масиву в діапазоні від 0 до 100
 */
 void genAutoArray(int arr[], int& size);
@@ -50,6 +55,16 @@ void genManMatrix(double mtx[4][3], int m, int n);
 void genManMatrix(int mtx[4][3], int m, int n);
 
 /*
+    Автоматично генерує тензор (цілі числа) T(3*2*2) в діапазоні [-100; 100]
+*/
+void genAutoTensor(int tnsr[2][3][2], int d, int m, int n);
+
+/*
+    Користувач вручну генерує тензор T(3*2*2) (цілі числа)
+*/
+void genManTensor(int tnsr[2][3][2], int d, int m, int n);
+
+/*
     Перевіряє правильність вибору користувача із запропонованих варіантів
 */
 void getUserChoice(int& choice, std::map<int, std::string> av_options);
@@ -78,5 +93,10 @@ void printOutMatrix(double mtx[4][3], int m, int n);
     Виводить вміст матриці на екран (цілі числа)
 */
 void printOutMatrix(int mtx[4][3], int m, int n);
+
+/*
+    Виводить вміст тензору на екран (цілі числа)
+*/
+void printOutTensor(int tnsr[2][3][2], int d, int m, int n);
 
 #endif
