@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <map>
 #include <random>
+#include <cmath>
 
 #include "array_lib.hpp"
 using namespace std;
@@ -83,6 +84,131 @@ void sumEvenElements(int tnsr[2][3][2], int d, int m, int n){
         }
     }
     cout << "Sum of even elements is: " << sum << endl;
+}
+
+void minElementBlock(){
+    int size, choice;
+    
+    getUntilNum(size, "Enter the size of array: ");
+    size = abs(size);
+
+    int arr[size];
+
+    cout << "Generate array" << endl;
+    getUserChoice(choice, {{0, "manually"}, {1, "automatic"}});
+
+    switch (choice)
+    {
+    case 0:
+        genManArray(arr, size);
+        break;
+    
+    case 1:
+        genAutoArray(arr, size);
+        break;
+
+    default:
+        cout << "Unknown error. Please try again" << endl;
+        return;
+    }
+
+    printOutArray(arr, size);
+    minElement(arr, size);
+}
+
+void avgNegArithmBlock(){
+    const int m = 4, n = 3;
+    int choice;
+    double mtx[m][n];
+
+    cout << "Generate matrix: " << endl;
+    getUserChoice(choice, {{0, "automatic"},{1, "manually"}});
+
+    switch (choice)
+    {
+    case 0:
+        genAutoMatrix(mtx, m, n);
+        break;
+    
+    case 1:
+        genManMatrix(mtx, m, n);
+        break;
+    
+    default:
+        cout << "Unknown error. Please try again" << endl;
+        return;
+    }
+    
+    avgNegArithm(mtx, m, n);
+    printOutMatrix(mtx, m, n);
+}
+
+void sumOddElementsBlock(){
+    const int m = 4, n = 3;
+    int mtx[m][n];
+    int choice;
+
+    cout << "Generate matrix: " << endl;
+    getUserChoice(choice, {{0, "automatic"},{1, "manually"}});
+
+    switch (choice)
+    {
+    case 0:
+        genAutoMatrix(mtx, m, n);
+        break;
+    
+    case 1:
+        genManMatrix(mtx, m, n);
+        break;
+    
+    default:
+        cout << "Unknown error. Please try again" << endl;
+        return;
+    }
+    
+    printOutMatrix(mtx, m, n);
+    sumOddElements(mtx, m, n);
+}
+
+void sumEvenElementsBlock(){
+    const int d = 2, m = 3, n = 2;
+    int choice;
+    int tnsr[2][3][2]= {
+        {
+            {1,2}, 
+            {3,4}, 
+            {5,6}
+        },
+        {
+            {7,8}, 
+            {9,10}, 
+            {11,12}}
+        };
+
+    cout << "Generate matrix: " << endl;
+
+    getUserChoice(choice, {{0, "automatic"},{1, "manually"}, {2, "default"}});
+
+    switch (choice)
+    {
+    case 0:
+        genAutoTensor(tnsr, d, m, n);
+        break;
+    
+    case 1:
+        genManTensor(tnsr, d, m, n);
+        break;
+    
+    case 2:
+        break;
+
+    default:
+        cout << "Unknown error. Please try again" << endl;
+        return;
+    }
+    
+    printOutTensor(tnsr, 2, 3, 2);
+    sumEvenElements(tnsr, d, m, n);
 }
 
 void genAutoArray(int arr[], int& size){
