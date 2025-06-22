@@ -59,6 +59,64 @@ void insertionSort(int arr[], int size, bool reverse){
     }
 }
 
+void sortMatrix(int mtx[45][45], int m, int n){
+    int choice;
+    auto sorter = bubbleSort;
+    cout << "\nWhat method use for sorting?" << endl;
+    getUserChoice(choice, {{
+        {0, "bubble sort"}, 
+        {1, "selection sort"}, 
+        {2, "insertion sort"}}});
+
+    switch (choice)
+    {
+    case 0:
+        sorter = bubbleSort;
+        break;
+    case 1:
+        sorter = selectionSort;
+        break;
+    case 2:
+        sorter = insertionSort;
+        break;
+    
+    default:
+        cout << "Unknown problem" << endl;
+        return;
+    }
+
+    int size;
+    for (int i = 0; i < m && i < 45; i++){
+        size = moveEvenToFront(mtx[i], n);
+        sorter(mtx[i], size, true);
+    }
+}
+
+int moveEvenToFront(int arr[], int size){
+    int* temp = new int[size];
+    int index = 0, count = 0;
+
+    for (int i = 0; i < size; i++){
+        if (arr[i] % 2 == 0){
+            temp[index++] = arr[i];
+            count++;
+        }
+    }
+
+    for (int i = 0; i < size; i++){
+        if (arr[i] % 2 != 0){
+            temp[index++] = arr[i];
+        }
+    }
+
+    for (int i = 0; i < size; i++){
+        arr[i] = temp[i];
+    }
+    delete[] temp;
+
+    return count;
+} 
+
 void genAutoArray(int arr[], int size){
     srand(time(0));
 
@@ -76,6 +134,28 @@ void genManArray(int arr[], int size){
 
         i++;
         size--;
+    }
+}
+
+void genAutoMatrix(int mtx[45][45], int m, int n){
+    srand(time(0));
+
+    for (int i = 0; i < m && i < 45; i++){
+        for (int j = 0; j < n && j < 45; j++){
+            mtx[i][j] = (rand() % 201) - 100;
+        }
+    }
+}
+
+void genManMatrix(int mtx[45][45], int m, int n){
+    int number; 
+    for (int i = 0; i < m && i < 45; i++){
+        cout << i + 1 << " row: ";
+        for (int j = 0; j < n && j < 45; j++){
+            getUntilNum(number, "Enter value: ");
+            mtx[i][j] = number;
+        }
+        cout << "\n";
     }
 }
 
@@ -121,4 +201,15 @@ void printOutArray(int arr[], int size){
         cout << arr[i] << ", ";
     }
     cout << "]" << endl;
+}
+
+void printOutMatrix(int mtx[45][45], int m, int n){
+    cout << "Content of the matrix:" << endl;
+    for (int i = 0; i < m && i < 45; i++){
+        cout << "\t";
+        for (int j = 0; j < n && j < 45; j++){
+            cout << mtx[i][j] << "\t\t";
+        }
+        cout << endl;
+    } 
 }
