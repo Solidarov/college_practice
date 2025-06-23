@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <limits>
+#include <random>
 
 #include "sort_lib.hpp"
 
@@ -117,6 +118,49 @@ int moveEvenToFront(int arr[], int size){
     return count;
 } 
 
+double findMin(double row[], int size) {
+    double minVal = row[0];
+    for (int i = 1; i < size && i < 45; ++i) {
+        if (row[i] < minVal)
+            minVal = row[i];
+    }
+    return minVal;
+}
+
+void swapRows(double a[], double b[], int size) {
+    for (int i = 0; i < size && size < 45; ++i) {
+        swap(a[i], b[i]);
+    }
+}
+
+void sortRows(double mtx[45][45], int m, int n){
+    for (int i = 0; i < m - 1 && i < 45; ++i) {
+        for (int j = i + 1; j < n && j < 45; ++j) {
+            if (findMin(mtx[i], n) < findMin(mtx[j], n)) {
+                swapRows(mtx[i], mtx[j], n);
+            }
+        }
+    }
+}
+
+void countNegNums(double mtx[45][45], int m, int n){
+    int count = 0, rowCount[m] = {};
+    for (int i = 0; i < m && i < 45; i++){
+        for (int j = 0; j < n && j < 45; j++){
+            if (mtx[i][j] < 0){
+                count++;
+            }
+        }
+        rowCount[i] = count;
+        count = 0;
+    }
+
+    cout << "Count of negative numbers by the rows: " << endl;
+    for (int i = 0; i < m && i < 45; i++){
+        cout << i+1 << " row -> " << rowCount[i] << " negative numbers;" << endl;
+    }
+}
+
 void genAutoArray(int arr[], int size){
     srand(time(0));
 
@@ -147,6 +191,19 @@ void genAutoMatrix(int mtx[45][45], int m, int n){
     }
 }
 
+void genAutoMatrix(double mtx[45][45], int m, int n){
+    double number;
+    uniform_real_distribution<double> unif(-100, 100);
+    default_random_engine re(time(0));
+
+    for (int i = 0; i < m && i < 45; i++){
+        for (int j = 0; j < n && j < 45; j++){
+            number = round(unif(re) * 100) / 100;
+            mtx[i][j] = number;
+        }
+    }
+}
+
 void genManMatrix(int mtx[45][45], int m, int n){
     int number; 
     for (int i = 0; i < m && i < 45; i++){
@@ -154,6 +211,18 @@ void genManMatrix(int mtx[45][45], int m, int n){
         for (int j = 0; j < n && j < 45; j++){
             getUntilNum(number, "Enter value: ");
             mtx[i][j] = number;
+        }
+        cout << "\n";
+    }
+}
+
+void genManMatrix(double mtx[45][45], int m, int n){
+    double number; 
+    for (int i = 0; i < m && i < 45; i++){
+        cout << i + 1 << " row: ";
+        for (int j = 0; j < n && j < 45; j++){
+            getUntilNum(number, "Enter value: ");
+            mtx[i][j] = round(number * 100) / 100;
         }
         cout << "\n";
     }
@@ -195,6 +264,22 @@ void getUntilNum(int& iInput, string msg){
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+void getUntilNum(double& dInput, string msg){
+    cout << "\n" << msg;
+    cin >> dInput;
+
+    while (!cin){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input. \n" << msg;
+        cin >> dInput;
+    }
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+}
+
 void printOutArray(int arr[], int size){
     cout << "Content of the array: [ ";
     for (int i = 0; i < size; i++){
@@ -204,6 +289,17 @@ void printOutArray(int arr[], int size){
 }
 
 void printOutMatrix(int mtx[45][45], int m, int n){
+    cout << "Content of the matrix:" << endl;
+    for (int i = 0; i < m && i < 45; i++){
+        cout << "\t";
+        for (int j = 0; j < n && j < 45; j++){
+            cout << mtx[i][j] << "\t\t";
+        }
+        cout << endl;
+    } 
+}
+
+void printOutMatrix(double mtx[45][45], int m, int n){
     cout << "Content of the matrix:" << endl;
     for (int i = 0; i < m && i < 45; i++){
         cout << "\t";
