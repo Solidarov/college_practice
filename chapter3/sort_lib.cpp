@@ -60,6 +60,23 @@ void insertionSort(int arr[], int size, bool reverse){
     }
 }
 
+void insertionSort(double arr[], int size, bool reverse){
+    double temp;
+    for (int i = 1; i < size; i++){
+        for (int j = 0; j < i + 1; j++){
+            if (arr[j] >= arr[i] && !reverse){
+                temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }else if (arr[j] <= arr[i] && reverse){
+                temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+    }
+}
+
 void sortMatrix(int mtx[45][45], int m, int n){
     int choice;
     auto sorter = bubbleSort;
@@ -159,6 +176,42 @@ void countNegNums(double mtx[45][45], int m, int n){
     for (int i = 0; i < m && i < 45; i++){
         cout << i+1 << " row -> " << rowCount[i] << " negative numbers;" << endl;
     }
+}
+
+void sortCols(int mtx[45][45], int m, int n) {
+    int* tempCol = new int[m];
+    
+    for (int j = 0; j < n; j++) {
+
+        for (int i = 0; i < m; i++) {
+            tempCol[i] = mtx[i][j];
+        }
+        
+        insertionSort(tempCol, m, true);
+        
+        for (int i = 0; i < m; i++) {
+            mtx[i][j] = tempCol[i];
+        }
+    }
+    delete[] tempCol;
+}
+
+void sortCols(double mtx[45][45], int m, int n) {
+    double* tempCol = new double[m];
+    
+    for (int j = 0; j < n; j++) {
+
+        for (int i = 0; i < m; i++) {
+            tempCol[i] = mtx[i][j];
+        }
+        
+        insertionSort(tempCol, m, true);
+        
+        for (int i = 0; i < m; i++) {
+            mtx[i][j] = tempCol[i];
+        }
+    }
+    delete[] tempCol;
 }
 
 void genAutoArray(int arr[], int size){

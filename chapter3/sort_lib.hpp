@@ -15,9 +15,14 @@ void bubbleSort(int arr[], int size, bool reverse);
 void selectionSort(int arr[], int size, bool reverse);
 
 /*
-    Сортування масиву методом вставки
+    Сортування масиву методом вставки (цілі числа)
 */
 void insertionSort(int arr[], int size, bool reverse);
+
+/*
+    Сортування масиву методом вставки (дійсні числа)
+*/
+void insertionSort(double arr[], int size, bool reverse);
 
 /*
     Сортує матрицю за спаданням
@@ -49,6 +54,16 @@ void sortRows(double mtx[45][45], int m, int n);
     Знаходить кількість від'ємних елементів у матриці
 */
 void countNegNums(double mtx[45][45], int m, int n);
+
+/*
+    Сортує стовпці матриці (цілі числа)
+*/
+void sortCols(int mtx[45][45], int m, int n);
+
+/*
+    Сортує стовпці матриці (дійсні числа)
+*/
+void sortCols(double mtx[45][45], int m, int n);
 
 /*
     Автоматична генерація масиву в діапазоні від -100 до 100
