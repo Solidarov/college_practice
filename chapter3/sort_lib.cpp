@@ -77,6 +77,138 @@ void insertionSort(double arr[], int size, bool reverse){
     }
 }
 
+void mergeSort(int arr[], int size, bool reverse){
+    int* temp = new int[size];
+
+    for (int width = 1; width < size; width = 2 * width){
+        for (int i = 0; i < size; i = i + 2 * width){
+
+            int left = i;
+            int mid = min(i + width, size);
+            int right = min(i+2*width, size);
+            int i1 = left;
+            int i2 = mid;
+            int j = left;
+
+            while (i1 < mid && i2 < right){
+                if ((!reverse && arr[i1] <= arr[i2]) || 
+                (reverse && arr[i1] >= arr[i2])){
+                    temp[j++] = arr[i1++];
+                } else {
+                    temp[j++] = arr[i2++];
+                }
+            }
+
+            while (i1 < mid){
+                temp[j++] = arr[i1++];
+            }
+            while (i2 < right){
+                temp[j++] = arr[i2++];
+            }
+        }
+
+        for (int i = 0; i < size; i++){
+            arr[i] = temp[i];
+        }
+    }
+
+    delete[] temp;
+}
+
+void bogoSort(int arr[], int size, bool reverse) {
+    // Helper function to check if array is sorted
+    auto isSorted = [reverse](int arr[], int size) -> bool {
+        for (int i = 0; i < size - 1; i++) {
+            if ((!reverse && arr[i] > arr[i+1]) || 
+                (reverse && arr[i] < arr[i+1])) {
+                return false;
+            }
+        }
+        return true;
+    };
+    
+    // Keep shuffling until the array is sorted
+    while (!isSorted(arr, size)) {
+        // Fisher-Yates shuffle
+        for (int i = size - 1; i > 0; i--) {
+            int j = rand() % (i + 1);
+            swap(arr[i], arr[j]);
+        }
+    }
+}
+
+void quickSort(int arr[], int low, int high, bool reverse){
+    if (low < high){
+        int pivotIndex = partition(arr, low, high, reverse);
+        quickSort(arr, low, pivotIndex - 1, reverse);
+        quickSort(arr, pivotIndex + 1, high, reverse);
+    }
+}
+
+    int partition(int arr[], int low, int high, bool reverse){
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++){
+            if ((arr[j] <= pivot && !reverse) ||
+            (arr[j] >= pivot && reverse)){
+                i++;
+                swap(arr[i], arr[j]);
+            }
+        }
+        swap(arr[i + 1], arr[high]);
+        return i + 1;
+    }
+
+void cocktailSort(int arr[], int size, bool reverse){
+    bool swapped;
+    do {
+        swapped = false;
+        
+        for (int i = 0; i < size - 1; i++) {
+            if ((!reverse && arr[i] > arr[i + 1]) || 
+                (reverse && arr[i] < arr[i + 1])) {
+                swap(arr[i], arr[i + 1]);
+                swapped = true;
+            }
+        }
+        
+        if (!swapped) 
+            break; 
+
+        swapped = false;
+        
+        for (int i = size - 2; i >= 0; i--) {
+            if ((!reverse && arr[i] > arr[i + 1]) || 
+                (reverse && arr[i] < arr[i + 1])) {
+                swap(arr[i], arr[i + 1]);
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+void partialSort(int arr[], int size, int k, bool reverse) {
+    if (k <= 0 || k > size) {
+        return; 
+    }
+    
+    for (int i = 0; i < k; i++) {
+        int extremeIndex = i;
+        
+        for (int j = i + 1; j < size; j++) {
+            if ((!reverse && arr[j] < arr[extremeIndex]) ||
+                (reverse && arr[j] > arr[extremeIndex])) {
+                extremeIndex = j;
+            }
+        }
+        
+        if (extremeIndex != i) {
+            swap(arr[i], arr[extremeIndex]);
+        }
+    }
+}
+
 void sortMatrix(int mtx[45][45], int m, int n){
     int choice;
     auto sorter = bubbleSort;
@@ -214,6 +346,157 @@ void sortCols(double mtx[45][45], int m, int n) {
     delete[] tempCol;
 }
 
+void sortArrayAdv(int arr[], int size, bool reverse){
+    int choice, k;
+
+    cout << "\n\nChoose algorithm for sort array" << endl;
+    getUserChoice(choice, {
+        {0, "merge sort"},
+        {1, "bogo sort"},
+        {2, "quick sort"},
+        {3, "cocktail sort"},
+        {4, "partial sort"}, });
+
+    switch (choice)
+    {
+    case 0:
+        mergeSort(arr, size, reverse);
+        break;
+    case 1:
+        bogoSort(arr, size, reverse);
+        break;
+    
+    case 2:
+        quickSort(arr, 0, size-1, reverse);
+        break;
+
+    case 3:
+        cocktailSort(arr, size, reverse);
+        break;
+    case 4:
+        getUntilNum(k, "How many nums sort: ");
+        partialSort(arr, size, k, reverse);
+        break;
+    
+    default:
+        cout << "Unknown error. Try again" << endl;
+        return;
+    }
+}
+
+void sortMatrixAdv(int mtx[45][45], int m, int n, bool reverse){
+    int choice, k;
+
+    cout << "\n\nChoose algorithm for sort matrix" << endl;
+    getUserChoice(choice, {
+        {0, "merge sort"},
+        {1, "bogo sort"},
+        {2, "quick sort"},
+        {3, "cocktail sort"},
+        {4, "partial sort"}, });
+
+    switch (choice)
+    {
+    case 0:
+        for (int i = 0; i < m && i < 45; i++){
+            mergeSort(mtx[i], n, reverse);
+        }
+        break;
+
+    case 1:
+        for (int i = 0; i < m && i < 45; i++){
+            bogoSort(mtx[i], n, reverse);
+        }
+        break;
+    
+    case 2:
+        for (int i = 0; i < m && i < 45; i++){
+            quickSort(mtx[i], 0, n-1, reverse);
+        }
+        break;
+
+    case 3:
+        for (int i = 0; i < m && i < 45; i++){
+            cocktailSort(mtx[i], n, reverse);
+        }
+        break;
+
+    case 4:
+        getUntilNum(k, "How many nums sort: ");
+
+        for (int i = 0; i < m && i < 45; i++){
+            partialSort(mtx[i], n, k, reverse);
+        }
+        break;
+    
+    default:
+        cout << "Unknown error. Try again" << endl;
+        return;
+    }
+}
+
+void sortTensorAdv(int tnsr[2][3][2], int d, int m, int n, bool reverse){
+    int choice, k;
+
+    cout << "\n\nChoose algorithm for sort tensor" << endl;
+    getUserChoice(choice, {
+        {0, "merge sort"},
+        {1, "bogo sort"},
+        {2, "quick sort"},
+        {3, "cocktail sort"},
+        {4, "partial sort"}, });
+
+    switch (choice)
+    {
+    case 0:
+        for (int j = 0; j < d && j < 2; j++){
+            for (int i = 0; i < m && i < 3; i++){
+                mergeSort(tnsr[j][i], n, reverse);
+            }
+        }
+        
+        break;
+
+    case 1:
+        for (int j = 0; j < d && j < 2; j++){
+            for (int i = 0; i < m && i < 3; i++){
+                bogoSort(tnsr[j][i], n, reverse);
+            }
+        }
+        break;
+    
+    case 2:
+        for (int j = 0; j < d && j < 2; j++){
+            for (int i = 0; i < m && i < 45; i++){
+                quickSort(tnsr[j][i], 0, n - 1, reverse);
+            }
+        }
+        break;
+
+    case 3:
+        for (int j = 0; j < d && j < 2; j++){
+            for (int i = 0; i < m && i < 45; i++){
+                cocktailSort(tnsr[j][i], n, reverse);
+            }
+        }
+        break;
+
+    case 4:
+        getUntilNum(k, "How many nums sort: ");
+
+        for (int j = 0; j < d && j < 2; j++){
+            for (int i = 0; i < m && i < 45; i++){
+                partialSort(tnsr[j][i], n, k, reverse);
+            }
+        }
+        break;
+    
+    default:
+        cout << "Unknown error. Try again" << endl;
+        return;
+    }
+}
+
 void genAutoArray(int arr[], int size){
     srand(time(0));
 
@@ -278,6 +561,33 @@ void genManMatrix(double mtx[45][45], int m, int n){
             mtx[i][j] = round(number * 100) / 100;
         }
         cout << "\n";
+    }
+}
+
+void genAutoTensor(int tnsr[2][3][2], int d, int m, int n){
+    srand(time(0));
+    for (int i = 0; i < 2 && i < d; i++){
+        for (int j = 0; j < 3 && j < m; j++){
+            for (int k = 0; k < 2 && k < n; k++){
+                tnsr[i][j][k] = (rand() % 201) - 100;
+            }
+        }
+    }
+}
+
+void genManTensor(int tnsr[2][3][2], int d, int m, int n){
+    int number;
+    for (int i = 0; i < 2 && i < d; i++){
+        cout << "\t" << i + 1 << " depth:" << endl;
+        for (int j = 0; j < 3 && j < m; j++){
+            cout << "\t" << j + 1 << " row:";
+            for (int k = 0; k < 2 && k < n; k++){
+                getUntilNum(number, "Enter the value: ");
+                tnsr[i][j][k] = number;
+            }
+            cout << endl;
+        }
+        cout << endl;
     }
 }
 
@@ -361,4 +671,17 @@ void printOutMatrix(double mtx[45][45], int m, int n){
         }
         cout << endl;
     } 
+}
+
+void printOutTensor(int tnsr[2][3][2], int d, int m, int n){
+    cout << "Content of the tensor: \n" << endl;
+    for (int i = 0; i < 2 && i < d; i++){
+        for (int j = 0; j < 3 && j < m; j++){
+            for (int k = 0; k < 2 && k < n; k++){
+                cout << "\t" << tnsr[i][j][k];
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
 }
