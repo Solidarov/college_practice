@@ -29,6 +29,11 @@ struct Student {
 void Shapka();
 
 /*
+    Виводить один рядок
+*/
+void OutRow(Student& student, int n);
+
+/*
     Виводить на екран таблицю
 */
 void OutTable();
@@ -42,6 +47,16 @@ void NewStudent();
     Видаляє запис по номеру
 */
 void DelRow(int n);
+
+/*
+    Повертає ім'я студента від вводу користувача
+*/
+string GetName();
+
+/*
+    Шукає студента в таблиці по імені
+*/
+void SearchStudent(string name);
 
 /*
     Меню вибору

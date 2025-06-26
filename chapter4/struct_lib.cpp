@@ -21,6 +21,18 @@ void Shapka() {
     "-------------------------------------------------------------------------------------\n";
 }
 
+void OutRow(Student& student, int n){
+    Shapka();
+    cout << "\\ " << setw(2) << n + 1 << " \\  "
+             << setw(14) << left << student.name << " \\ "
+             << setw(6) << student.fLang << " \\  "
+             << setw(7) << student.advMath << "   \\    "
+             << setw(2) << student.physics << "   \\    "
+             << setw(7) << student.programming << "   \\    ";
+        cout << setw(7) << student.maxMark << "  \\\n";
+    cout << "-------------------------------------------------------------------------------------\n";
+}
+
 void OutTable() {
     Shapka();
     int i = 0;
@@ -55,6 +67,8 @@ void NewStudent() {
 
     Student s(name, fLang, advMath, physics, programming);
     students.push_back(s);
+
+    cout << "\nСтудента успішно додано\n" << endl;
     
 }
 
@@ -67,22 +81,52 @@ void DelRow(int n) {
     cout << "\n\tЗапис видалено!" << endl;
 }
 
+string GetName(){
+    string name;
+
+    cout << "Введіть прізвище студента: ";
+    cin >> name;
+    
+    return name;
+}
+
+void SearchStudent(string name){
+    int foundIndex = -1;
+    for (int i = 0; i < students.size(); i++){
+        if (students[i].name == name){
+            foundIndex = i;
+            break;
+        }
+    }
+    if (foundIndex == -1){
+        cout << "Студента з іменем " << name << " не знайдено." << endl;
+        return;
+    }
+    OutRow(students[foundIndex], foundIndex);
+}
 
 void menu() {
     int choice;
     do {
         cout << "\n1. Шапка таблиці"
              << "\n2. Додати студента"
-             << "\n3. Вивід таблиці"
-             << "\n4. Видалити запис"
+             << "\n3. Шукати студента"
+             << "\n4. Вивід таблиці"
+             << "\n5. Видалити запис"
              << "\n0. Вихід\n";
         cout << "Ваш вибір: "; cin >> choice;
 
         switch (choice) {
             case 1: Shapka(); break;
             case 2: NewStudent(); break;
-            case 3: OutTable(); break;
-            case 4: {
+            case 3: {
+                string studName;
+                studName = GetName();
+                SearchStudent(studName);
+                break;
+            }
+            case 4: OutTable(); break;
+            case 5: {
                 int del_num;
                 cout << "Введіть номер рядка для видалення: ";
                 cin >> del_num;
