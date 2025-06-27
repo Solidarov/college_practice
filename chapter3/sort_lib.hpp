@@ -70,19 +70,25 @@ int moveEvenToFront(int arr[], int size);
 double findMin(double row[], int size);
 
 /*
-    Змінює рядки матриці місцями
+    Допоміжна функція для сортування масиву пар {добуток стовпця, індекс стовпця}
 */
-void swapRows(double a[], double b[], int size);
+bool helpSortByCols(std::pair<long long, int> &a, std::pair<long long, int> &b);
 
 /*
-    Сортує рядки матриці за спаданням мінімальних елементів
+    Сортування стовпців за їхнім добутком
 */
-void sortRows(double mtx[45][45], int m, int n);
+void sortColumnsByProduct(int mtx[45][45], int m, int n);
 
 /*
-    Знаходить кількість від'ємних елементів у матриці
+    Знаходить мінімальний елемент в рядку
 */
-void countNegNums(double mtx[45][45], int m, int n);
+void findMinInRows(int mtx[45][45], int m, int n);
+
+/*
+    Впорядковує стовпці матриці за зростанням добутку елементів у стовпцях. 
+    Знаходить мінімум у кожному рядку матриці
+*/
+void processMatrix(int mtx[45][45], int m, int n);
 
 /*
     Сортує стовпці матриці (цілі числа)

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <limits>
 #include <random>
+#include <algorithm>
+#include <utility>
 
 #include "sort_lib.hpp"
 
@@ -276,38 +278,65 @@ double findMin(double row[], int size) {
     return minVal;
 }
 
-void swapRows(double a[], double b[], int size) {
-    for (int i = 0; i < size && size < 45; ++i) {
-        swap(a[i], b[i]);
-    }
+bool helpSortByCols(pair<long long, int> &a, pair<long long, int> &b){
+    return a.first < b.first;
 }
 
-void sortRows(double mtx[45][45], int m, int n){
-    for (int i = 0; i < m - 1 && i < 45; ++i) {
-        for (int j = i + 1; j < n && j < 45; ++j) {
-            if (findMin(mtx[i], n) < findMin(mtx[j], n)) {
-                swapRows(mtx[i], mtx[j], n);
-            }
+void sortColumnsByProduct(int mtx[45][45], int m, int n) {
+    
+    // Масив пар {добуток, індекс стовпця}
+    pair <long long, int> prodIdxCols[45];
+    
+    for (int j = 0; j < n; j++) {
+        prodIdxCols[j].first = 1;
+        prodIdxCols[j].second = j;
+        
+        for (int i = 0; i < m; i++) {
+            prodIdxCols[j].first *= mtx[i][j];
+        }
+    }
+
+    sort(&prodIdxCols[0], &prodIdxCols[n], helpSortByCols);
+    
+    int temp[45][45];
+    
+    for (int j = 0; j < n; j++) {
+        for (int i = 0; i < m; i++) {
+            temp[i][j] = mtx[i][prodIdxCols[j].second];
+        }
+    }
+    
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            mtx[i][j] = temp[i][j];
         }
     }
 }
 
-void countNegNums(double mtx[45][45], int m, int n){
-    int count = 0, rowCount[m] = {};
-    for (int i = 0; i < m && i < 45; i++){
-        for (int j = 0; j < n && j < 45; j++){
-            if (mtx[i][j] < 0){
-                count++;
+
+void findMinInRows(int mtx[45][45], int m, int n) {
+    cout << "Minimum elements in each row:" << endl;
+    
+    for (int i = 0; i < m; i++) {
+        int minVal = mtx[i][0];
+        
+        for (int j = 1; j < n; j++) {
+            if (mtx[i][j] < minVal) {
+                minVal = mtx[i][j];
             }
         }
-        rowCount[i] = count;
-        count = 0;
+        
+        cout << "Row " << (i + 1) << ": " << minVal << endl;
     }
+}
 
-    cout << "Count of negative numbers by the rows: " << endl;
-    for (int i = 0; i < m && i < 45; i++){
-        cout << i+1 << " row -> " << rowCount[i] << " negative numbers;" << endl;
-    }
+void processMatrix(int mtx[45][45], int m, int n) {
+
+    sortColumnsByProduct(mtx, m, n);
+    cout << "Matrix with columns sorted by product:" << endl;
+    printOutMatrix(mtx, m, n);
+
+    findMinInRows(mtx, m, n);
 }
 
 void sortCols(int mtx[45][45], int m, int n) {
