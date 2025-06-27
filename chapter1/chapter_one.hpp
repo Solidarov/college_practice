@@ -99,17 +99,16 @@ void calcConditionalExpr(double* y, double x, double a){
     }
 }
 
-// Обчислює розширений розгалужений вираз із 3 завдання для 7 варіанту
+// Обчислює розширений розгалужений вираз із 3 завдання для 15 варіанту
 void calcAdvConditionalExpr(double *y, double x, double a, double b){
-    if ((x > -3) && (x < 3)){
-        double eq = 3 * x * x - a;
-        *y = (eq < 0) ? sqrt(abs(eq)) : sqrt(eq);
+    if ((x >= 0) && (x < 9)){
+        *y = tan(x);
 
-    }else if (x == 3){
-        *y = -b * x + 3;
+    }else if (x == 9){
+        *y = 3 * exp(a * x) + 1;
 
-    }else if ((x > 3) && (x < 8)){
-        *y = cos(x - 4);
+    }else if ((x > 9) && (x < 11)){
+        *y = x*x*x - b * x + 3;
 
     }else{
         *y = 0;
