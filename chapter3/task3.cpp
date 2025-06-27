@@ -11,13 +11,6 @@ int main(){
     genAutoMatrix(mtx, m, n);
     printOutMatrix(mtx, m, n);
     
-    // sortRows(mtx, m, n);
-    // cout << "\nAfter the sorting: " << endl;
-    // printOutMatrix(mtx, m, n);
-
-    // cout << endl;
-    // countNegNums(mtx, m, n);
-    
     processMatrix(mtx, m, n);
 
     return 0;
